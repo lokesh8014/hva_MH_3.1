@@ -14,7 +14,11 @@ document.getElementById("loginForm")?.addEventListener("submit", async function 
     if (response.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.user.role);
-        window.location.href = data.user.role === "admin" ? "admin_dashboard.html" : "user_dashboard.html";
+        if (data.user.role === "admin") {
+            window.location.href = "admin_dashboard.html";
+        } else {
+            window.location.href = "user_dashboard.html";
+        }        
     } else {
         alert("Invalid credentials");
     }

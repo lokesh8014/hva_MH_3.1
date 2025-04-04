@@ -8,7 +8,7 @@ const taskRoutes = require("./routes/taskRoute");
 const User = require("./models/userModel");
 const cors = require("cors"); 
 
-// Check environment variables
+// Checking environment variables
 if (!process.env.SECRET_KEY || !process.env.MONGODB_URI) {
     console.error("ERROR: Missing required environment variables.");
     process.exit(1);
@@ -19,7 +19,7 @@ const app = express();
 app.use(express.json()); 
 app.use(cors({ origin: "http://127.0.0.1:5500" }));
 
-// Connect to MongoDB
+// Connecting to MongoDB
 mongoose
     .connect(process.env.MONGODB_URI)
     .then(() => console.log(" MongoDB Connected"))
@@ -28,7 +28,7 @@ mongoose
         process.exit(1);
     });
 
-// Create or Update Admin User
+// Creating Admin User
 const createAdmin = async () => {
     try {
         const adminEmail = "admin@hyperverge.co";
