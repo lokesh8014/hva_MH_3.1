@@ -17,7 +17,11 @@ if (!process.env.SECRET_KEY || !process.env.MONGODB_URI) {
 // Setting up Express
 const app = express();
 app.use(express.json()); 
-app.use(cors({ origin: "http://127.0.0.1:5500" }));
+app.use(cors({
+    origin: "https://hva-mh-3-1.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  }));
 
 // Connecting to MongoDB
 mongoose
