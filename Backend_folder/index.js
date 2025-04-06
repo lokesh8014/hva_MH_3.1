@@ -17,11 +17,18 @@ if (!process.env.SECRET_KEY || !process.env.MONGODB_URI) {
 // Setting up Express
 const app = express();
 app.use(express.json()); 
-app.use(cors({
+const corsOptions = {
     origin: "https://hva-mh-3-1.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  }));
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization"]
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests explicitly
+app.options("*", cors(corsOptions));
+
 
 // Connecting to MongoDB
 mongoose
