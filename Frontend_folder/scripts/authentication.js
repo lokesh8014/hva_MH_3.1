@@ -3,8 +3,8 @@ document
   ?.addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
 
     const response = await fetch(
       'https://hva-mh-3-1.onrender.com/api/users/login',
