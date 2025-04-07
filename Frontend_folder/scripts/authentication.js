@@ -34,9 +34,9 @@ document
   ?.addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
     console.log({ name, email, password });
 
     const response = await fetch('https://hva-mh-3-1.onrender.com/api/users', {
