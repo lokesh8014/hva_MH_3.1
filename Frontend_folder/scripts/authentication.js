@@ -1,9 +1,7 @@
 document.getElementById('loginForm')?.addEventListener('submit', async function (event) {
     event.preventDefault();
-    console.log(typeof email);
-    console.log(typeof password);
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
+    const email = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value.trim();
 
     const response = await fetch(
       'https://hva-mh-3-1.onrender.com/api/users/login',
@@ -32,8 +30,8 @@ document.getElementById('registerForm')?.addEventListener('submit', async functi
     event.preventDefault();
 
     const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
+    const email = document.getElementById('register-email').value.trim();
+    const password = document.getElementById('register-password').value.trim();
     console.log({ name, email, password });
 
     const response = await fetch('https://hva-mh-3-1.onrender.com/api/users', {
