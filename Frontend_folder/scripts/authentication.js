@@ -1,8 +1,7 @@
-document
-  .getElementById('loginForm')
-  ?.addEventListener('submit', async function (event) {
+document.getElementById('loginForm')?.addEventListener('submit', async function (event) {
     event.preventDefault();
-
+    console.log(typeof email);
+    console.log(typeof password);
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
 
@@ -29,9 +28,7 @@ document
     }
   });
 
-document
-  .getElementById('registerForm')
-  ?.addEventListener('submit', async function (event) {
+document.getElementById('registerForm')?.addEventListener('submit', async function (event) {
     event.preventDefault();
 
     const name = document.getElementById('name').value.trim();
