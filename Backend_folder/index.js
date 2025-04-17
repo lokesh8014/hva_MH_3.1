@@ -24,12 +24,11 @@ const corsOptions = {
   };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));// Handle preflight requests explicitly
+app.options("*", cors(corsOptions));
 app.use(express.json()); 
 
 // Connecting to MongoDB
-mongoose
-    .connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log(" MongoDB Connected"))
     .catch((err) => {
         console.error("MongoDB Connection Error:", err);

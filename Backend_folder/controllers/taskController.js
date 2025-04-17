@@ -17,13 +17,27 @@ exports.createTask = async (req, res) => {
     }
 };
 
-// Geting Tasks for User Dashboard
+// Geting Tasks and user data for User Dashboard
 exports.getUserTasks = async (req, res) => {
     try {
-        const tasks = await Task.find({ userId: req.user.id });
-        res.status(200).json({ tasks });
+        const userId = req.user.id;
+
+        const user = await User.findById(userId).select('name email');
+
+        const tasks = await Task.find({ userId });
+
+        res.status(200).json({
+            user: {
+                name: user.name,
+                email: user.email,
+                id: user._id
+            },
+            tasks: tasks
+        });
+
     } catch (error) {
-        res.status(500).json({ message: 'Error retrieving tasks', error });
+        console.error("Dashboard Fetch Error:", error);
+        res.status(500).json({ message: 'Error retrieving user dashboard info', error });
     }
 };
 
@@ -33,8 +47,36 @@ exports.getAllTasks = async (req, res) => {
         if (req.user.role !== 'admin') {
             return res.status(403).json({ message: 'Access denied' });
         }
+
+        // Fetching tasks 
         const tasks = await Task.find().populate('userId', 'name email');
-        res.status(200).json({ tasks });
+
+        // Grouping tasks by user
+        const groupedTasks = {};
+
+        tasks.forEach(task => {
+            const userId = task.userId._id;
+            if (!groupedTasks[userId]) {
+                groupedTasks[userId] = {
+                    userId,
+                    name: task.userId.name,
+                    email: task.userId.email,
+                    tasks: []
+                };
+            }
+
+            groupedTasks[userId].tasks.push({
+                id: task._id,
+                title: task.title,
+                description: task.description
+            });
+        });
+
+        // Converting object to array
+        const result = Object.values(groupedTasks);
+
+        res.status(200).json({ users: result });
+
     } catch (error) {
         res.status(500).json({ message: 'Error retrieving tasks', error });
     }

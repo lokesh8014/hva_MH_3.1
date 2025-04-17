@@ -1,8 +1,31 @@
 <nav>
-    <a href="index.html" style="text-decoration: none;">Home</a>
-</nav>
-
-
-
-
-
+    <div class="nav-container" style="display: flex; justify-content: space-between; align-items: center; padding: 10px;">
+      <div class="nav-left" style="display: flex; gap: 10px;">
+        <a id="home" href="index.html" style="text-decoration: none">Home</a>
+        <p id="userDashboard" style="display: none; color: black;">User Dashboard</p>
+        <p id="adminDashboard" style="display: none; color: black;">Admin Dashboard</p>
+      </div>
+      <div class="nav-right" style="display: flex; align-items: center; gap: 10px;">
+        <!-- User Icon -->
+        <div id="userIconWrapper" style="position: relative; display: none; cursor: pointer;">
+          <img src="https://assets.leetcode.com/users/default_avatar.jpg" alt="User" style="width: 30px; height: 30px; border-radius: 50%;">
+          <div id="userInfoCard" style="display: none; position: absolute; top: 35px; right: 0; background: white; border: 1px solid #ccc; padding: 10px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 10;">
+            <strong id="userName">User</strong><br>
+            <span id="taskCount">Tasks: 0</span>
+          </div>
+        </div>
+  
+        <!-- Auth Buttons -->
+        <a id="loginButton" href="login.html" style="text-decoration: none; display: inline-block">Login</a>
+        <a id="registerButton" href="registration.html" style="text-decoration: none; display: inline-block">Register</a>
+        <button id="logoutButton" onclick="logout()" style="margin-left: 10px; display: none">Logout</button>
+      </div>
+    </div>
+  </nav>
+  
+  <style>
+      div a:hover {
+          color: brown;
+      }
+  </style>
+  

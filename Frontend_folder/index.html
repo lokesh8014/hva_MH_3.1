@@ -3,50 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Manage your tasks</title>
     <link rel="stylesheet" href="./styles/main.css">
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            font-family: Arial, sans-serif;
             background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
-        .container {
+    
+        .welcome-container {
             text-align: center;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 90%;
         }
-        .container h1 {
+    
+        .welcome-container h1 {
+            color: #e68a00;
             margin-bottom: 10px;
         }
-        .container a {
-            display: block;
-            text-decoration: none;
-            background: #007BFF;
-            color: white;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
+    
+        .welcome-container h2 {
+            color: #333;
+            margin-top: 0;
+            font-weight: normal;
         }
-        .container a:hover {
-            background: #0056b3;
+    
+        .welcome-container h3 {
+            color: #555;
+            margin: 5px 0 15px;
+            font-weight: normal;
         }
-    </style>
+    
+        p.main-title {
+            font-size: 48px;
+            font-weight: bold;
+            color: #e6a036;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>    
 </head>
 <body>
     <div id="navbar"></div> 
     
-    <div class="container">
-        <h1>Task Manager</h1>
-        <p>Login or Register to continue.</p>
-        <a href="login.html">Login</a>
-        <a href="registration.html">Register</a>
+    <p class="main-title">Welcome to Task Manager!</p>
+    <div class="welcome-container">
+      <h2>Here you can create and manage your tasks.</h2>
+      <h1>Already have an account?</h1>
+      <h3>Click on Login in the navbar above.</h3>
+      <h1 style="color: rgb(238, 142, 17);">New to the site?</h1>
+      <h3 style="color: rgb(238, 142, 17);">Click on Register in the navbar above.</h3>
     </div>
 
     <div id="footer"></div> 

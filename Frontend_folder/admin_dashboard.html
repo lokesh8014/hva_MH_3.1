@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="styles/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    .user-task-box {
+      border: 1px solid #ccc;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .task-box {
+      margin-left: 20px;
+      padding: 5px 0;
+    }
+  </style>
 </head>
 <body>
-    <div id="navbar"></div>
+  <div id="navbar"></div>
 
-    <h2 style="margin-top: 60px;">All User Tasks</h2>
-    <ul id="taskList"></ul>
+  <h2 style="margin-top: 70px;">All User Tasks</h2>
+  <div id="taskList"></div> 
 
-    <script src="scripts/loadingcomponents.js"></script>
-    <script src="scripts/admin_dashboard.js"></script>
+  <script src="scripts/loadingcomponents.js"></script>
+  <script src="scripts/admin_dashboard.js"></script>
 </body>
 </html>

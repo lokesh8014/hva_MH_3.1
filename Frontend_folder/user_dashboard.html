@@ -7,10 +7,16 @@
     <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body>
-    <div id="navbar"></div>
+    <div id="navbar" style="height: 25px;"></div>
 
-    <h2 style="margin-top: 60px;">My Tasks</h2>
-    <ul id="taskList"></ul>
+    <h2 style="margin-top: 70px;">My Tasks</h2>
+    <div id="taskForm" style="margin-top: 20px;">
+        <h3>Add New Task</h3>
+        <input type="text" id="taskTitleInput" placeholder="Task Title" required><br><br>
+        <textarea id="taskDescriptionInput" placeholder="Task Description" required></textarea><br><br>
+        <button onclick="addTask()">Add Task</button>
+    </div>
+        <div id="taskList"></div>
 
     <script src="./scripts/loadingcomponents.js"></script>
     <script src="./scripts/user_dashboard.js"></script>

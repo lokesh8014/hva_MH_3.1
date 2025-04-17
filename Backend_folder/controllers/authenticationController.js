@@ -42,7 +42,7 @@ exports.getUsers = async (req, res) => {
     }
 };
 
-
+// Login User
 exports.loginUser = async (req, res) => {
     try {
         console.log("Login attempt:", req.body);
