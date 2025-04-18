@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
+
+  if (!token || role !== 'admin') {
+    window.location.href = 'login.html';
+    return;
+  }
 
   const checkNavbar = setInterval(() => {
     const logoutButton = document.getElementById('logoutButton');
@@ -20,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
   }, 100); 
+  fetchingAllTasks();
 });
 
 async function fetchingAllTasks() {
@@ -82,8 +89,6 @@ async function fetchingAllTasks() {
     taskListElement.appendChild(userBox);
   });
 }
-
-fetchingAllTasks();
 
 function logout() {
   localStorage.removeItem("token");
