@@ -1,18 +1,17 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     const navbar = document.getElementById("navbar");
     const footer = document.getElementById("footer");
 
-    if (navbar) {
-        fetch("./components/navbar.html")
-            .then(response => response.text())
-            .then(data => navbar.innerHTML = data)
-            .catch(error => console.error("Navbar load error:", error));
-    }
-
-    if (footer) {
-        fetch("./components/footer.html")
-            .then(response => response.text())
-            .then(data => footer.innerHTML = data)
-            .catch(error => console.error("Footer load error:", error));
+    try {
+        if (navbar) {
+            const navRes = await fetch("./components/navbar.html");
+            navbar.innerHTML = await navRes.text();
+        }
+        if (footer) {
+            const footerRes = await fetch("./components/footer.html");
+            footer.innerHTML = await footerRes.text();
+        }
+    } catch (error) {
+        console.error("Component load error:", error);
     }
 });
