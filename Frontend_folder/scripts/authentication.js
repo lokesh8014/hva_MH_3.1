@@ -36,9 +36,9 @@ document
   ?.addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    const registerBtn = document.getElementById('registerBtn');
-    if (registerBtn) {
-      registerBtn.style.display = 'none'; 
+    const registerButton = document.getElementById('registerButton');
+    if (registerButton) {
+      registerButton.style.display = 'none'; 
     }
 
     const name = document.getElementById('name').value.trim();
