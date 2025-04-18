@@ -36,6 +36,11 @@ document
   ?.addEventListener('submit', async function (event) {
     event.preventDefault();
 
+    const registerBtn = document.getElementById('registerBtn');
+    if (registerBtn) {
+      registerBtn.style.display = 'none'; 
+    }
+
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value.trim();
