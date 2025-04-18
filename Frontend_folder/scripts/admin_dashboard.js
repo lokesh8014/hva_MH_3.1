@@ -3,29 +3,26 @@ document.addEventListener("DOMContentLoaded", () => {
   const role = localStorage.getItem('role');
 
   if (!token || role !== 'admin') {
-    window.location.href = 'login.html';
+    alert("Unauthorized access. Redirecting to login.");
+    window.location.replace("login.html");
     return;
   }
 
-  const checkNavbar = setInterval(() => {
-    const logoutButton = document.getElementById('logoutButton');
-    const loginButton = document.getElementById('loginButton');
-    const registerButton = document.getElementById('registerButton');
-    const home = document.getElementById('home');
-    const adminDashboard = document.getElementById('adminDashboard');
+  // Settingup navbar
+  const logoutButton = document.getElementById('logoutButton');
+  const loginButton = document.getElementById('loginButton');
+  const registerButton = document.getElementById('registerButton');
+  const home = document.getElementById('home');
+  const adminDashboard = document.getElementById('adminDashboard');
 
-    if (logoutButton && loginButton && registerButton) {
-      clearInterval(checkNavbar); 
+  if (logoutButton && loginButton && registerButton) {
+    logoutButton.style.display = 'inline-block';
+    loginButton.style.display = 'none';
+    registerButton.style.display = 'none';
+    if (home) home.style.display = 'none';
+    if (adminDashboard) adminDashboard.style.display = 'inline-block';
+  }
 
-      if (token) {
-        logoutButton.style.display = 'inline-block';
-        loginButton.style.display = 'none';
-        registerButton.style.display = 'none';
-        home.style.display = 'none';
-        adminDashboard.style.display = 'inline-block';
-      }
-    }
-  }, 100); 
   fetchingAllTasks();
 });
 
@@ -38,7 +35,7 @@ async function fetchingAllTasks() {
 
   if (!response.ok) {
     alert('Unauthorized access. Redirecting to login.');
-    window.location.href = 'login.html';
+    window.location.replace('login.html');
     return;
   }
 
@@ -54,11 +51,6 @@ async function fetchingAllTasks() {
   data.users.forEach(user => {
     const userBox = document.createElement('div');
     userBox.classList.add('user-task-box');
-    userBox.style.border = '1px solid #ccc';
-    userBox.style.margin = '10px 500px';
-    userBox.style.padding = '15px';
-    userBox.style.borderRadius = '8px';
-    userBox.style.backgroundColor = '#f9f9f9';
 
     const userHeading = document.createElement('h3');
     userHeading.textContent = `👤 ${user.name} (${user.email})`;
@@ -72,7 +64,6 @@ async function fetchingAllTasks() {
       user.tasks.forEach(task => {
         const taskBox = document.createElement('div');
         taskBox.classList.add('task-box');
-        taskBox.style.marginLeft = '20px';
 
         const title = document.createElement('h4');
         title.textContent = task.title;
@@ -92,5 +83,6 @@ async function fetchingAllTasks() {
 
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "login.html";
+  localStorage.removeItem("role");
+  window.location.replace("login.html"); 
 }
