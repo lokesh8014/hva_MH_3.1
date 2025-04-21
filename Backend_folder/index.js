@@ -20,11 +20,10 @@ const corsOptions = {
     origin: "https://hva-mh-3-1.vercel.app",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true
+    credentials: true,
   };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
 app.use(express.json()); 
 
 // Connecting to MongoDB
