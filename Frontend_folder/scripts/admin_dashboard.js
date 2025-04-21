@@ -28,6 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function fetchingAllTasks() {
   const token = localStorage.getItem('token');
+  if (!token) {
+    alert('No token found. Redirecting to login.');
+    window.location.replace('login.html');
+    return;
+  }
 
   const response = await fetch('https://hva-mh-3-1.onrender.com/api/admin/dashboard', {
     headers: { Authorization: `Bearer ${token}` },

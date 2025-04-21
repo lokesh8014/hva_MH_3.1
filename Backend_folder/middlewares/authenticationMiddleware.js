@@ -10,6 +10,7 @@ exports.authenticate = async (req, res, next) => {
     try {
         const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.SECRET_KEY);
         req.user = decoded;
+        console.log('Decoded User:', decoded);
         next();
     } catch (error) {
         res.status(400).json({ message: 'Invalid Token' });
