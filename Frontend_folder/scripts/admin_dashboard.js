@@ -39,6 +39,8 @@ async function fetchingAllTasks() {
   });
 
   if (!response.ok) {
+    const errorData = await response.json();
+    console.error('Error:', errorData);
     alert('Unauthorized access. Redirecting to login.');
     window.location.replace('login.html');
     return;
