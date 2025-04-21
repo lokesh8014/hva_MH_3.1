@@ -11,24 +11,21 @@ exports.authenticate = async (req, res, next) => {
   const token = authHeader.split(" ")[1];
 
   try {
-    // Decoding the token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded Token:", decoded);
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
-    // Finding user and including the role explicitly
-    const user = await User.findById(decoded.id).select("name email role");
-
+    const user = await User.findById(decoded.id).select("-password");
     if (!user) {
       return res.status(401).json({ message: "Invalid user" });
     }
 
-    // Attaching user to request
-    req.user = user;
-    console.log("Authenticated User:", req.user);
+    req.user = {
+      id: user._id,
+      name: user.name,
+      role: user.role, 
+    };
 
     next();
   } catch (err) {
-    console.error("Authentication Error:", err);
     return res.status(403).json({ message: "Invalid token" });
   }
 };
