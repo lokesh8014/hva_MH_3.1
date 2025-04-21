@@ -20,11 +20,14 @@ document.addEventListener("DOMContentLoaded", () => {
     home.style.display = 'inline-block';
     adminDashboard.style.display = 'none';
 
-    window.location.href = 'login.html';
+    if (!window.location.href.includes('login.html')) {
+      window.location.href = 'login.html';
+    }
   }
 
-  fetchingAllTasks(); 
+  fetchingAllTasks();
 });
+
 
 
 async function fetchingAllTasks() {
