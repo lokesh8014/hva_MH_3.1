@@ -1,29 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem('token');
 
-  const logoutButton = document.getElementById('logoutButton');
-  const loginButton = document.getElementById('loginButton');
-  const registerButton = document.getElementById('registerButton');
-  const home = document.getElementById('home');
-  const adminDashboard = document.getElementById('adminDashboard');
+  const checkNavbar = setInterval(() => {
+    const logoutButton = document.getElementById('logoutButton');
+    const loginButton = document.getElementById('loginButton');
+    const registerButton = document.getElementById('registerButton');
+    const home = document.getElementById('home');
+    const adminDashboard = document.getElementById('adminDashboard');
 
-  if (token) {
-    logoutButton.style.display = 'inline-block';
-    loginButton.style.display = 'none';
-    registerButton.style.display = 'none';
-    home.style.display = 'none';
-    adminDashboard.style.display = 'inline-block';
-  } else {
-    logoutButton.style.display = 'none';
-    loginButton.style.display = 'inline-block';
-    registerButton.style.display = 'inline-block';
-    home.style.display = 'inline-block';
-    adminDashboard.style.display = 'none';
+    if (logoutButton && loginButton && registerButton) {
+      clearInterval(checkNavbar);
 
-    window.location.href = 'login.html';
-  }
-
-  fetchingAllTasks(); 
+      if (token) {
+        logoutButton.style.display = 'inline-block';
+        loginButton.style.display = 'none';
+        registerButton.style.display = 'none';
+        home.style.display = 'none';
+        adminDashboard.style.display = 'inline-block';
+      }
+    }
+  }, 100);
+  fetchingAllTasks();
 });
 
 
