@@ -1,59 +1,61 @@
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
+
   fetch("admin_navbar.html")
     .then(res => res.text())
     .then(data => {
       document.getElementById("navbar-placeholder").innerHTML = data;
-    })
-    .catch(err => console.error("Failed to load navbar:", err));
 
-  // Navbar Elements
-  const logoutButton = document.getElementById("logoutButton");
-  const loginButton = document.getElementById("loginButton");
-  const registerButton = document.getElementById("registerButton");
-  const home = document.getElementById("home");
-  const adminDashboard = document.getElementById("adminDashboard");
-  const userDashboard = document.getElementById("userDashboard");
-  const userIconWrapper = document.getElementById("userIconWrapper");
-  const userName = document.getElementById("userName");
+      // Now safely access the injected navbar elements
+      const logoutButton = document.getElementById("logoutButton");
+      const loginButton = document.getElementById("loginButton");
+      const registerButton = document.getElementById("registerButton");
+      const home = document.getElementById("home");
+      const adminDashboard = document.getElementById("adminDashboard");
+      const userDashboard = document.getElementById("userDashboard");
+      const userIconWrapper = document.getElementById("userIconWrapper");
+      const userName = document.getElementById("userName");
 
-  if (token) {
-    logoutButton.style.display = "inline-block";
-    loginButton.style.display = "none";
-    registerButton.style.display = "none";
-    home.style.display = "none";
+      if (token) {
+        logoutButton.style.display = "inline-block";
+        loginButton.style.display = "none";
+        registerButton.style.display = "none";
+        home.style.display = "none";
 
-    // Showing icon and dashboard links based on role
-    userIconWrapper.style.display = "block";
+        userIconWrapper.style.display = "block";
 
-    try {
-      const payload = JSON.parse(atob(token.split(".")[1])); // Decode JWT
-      if (payload.role === "admin") {
-        adminDashboard.style.display = "block";
+        try {
+          const payload = JSON.parse(atob(token.split(".")[1])); // Decode JWT
+          if (payload.role === "admin") {
+            adminDashboard.style.display = "block";
+          } else {
+            userDashboard.style.display = "block";
+          }
+
+          userName.textContent = payload.name || "User";
+        } catch (err) {
+          console.warn("Token parsing error:", err);
+        }
+
+        logoutButton.addEventListener("click", logout); // Bind after element exists
       } else {
-        userDashboard.style.display = "block";
+        logoutButton.style.display = "none";
+        loginButton.style.display = "inline-block";
+        registerButton.style.display = "inline-block";
+        home.style.display = "inline-block";
+        adminDashboard.style.display = "none";
+        userDashboard.style.display = "none";
+        userIconWrapper.style.display = "none";
+
+        if (!window.location.href.includes("login.html")) {
+          window.location.href = "login.html";
+        }
       }
 
-      userName.textContent = payload.name || "User";
-    } catch (err) {
-      console.warn("Token parsing error:", err);
-    }
-
-  } else {
-    logoutButton.style.display = "none";
-    loginButton.style.display = "inline-block";
-    registerButton.style.display = "inline-block";
-    home.style.display = "inline-block";
-    adminDashboard.style.display = "none";
-    userDashboard.style.display = "none";
-    userIconWrapper.style.display = "none";
-
-    if (!window.location.href.includes("login.html")) {
-      window.location.href = "login.html";
-    }
-  }
-
-  fetchingAllTasks();
+      // Once navbar is ready, fetch tasks
+      fetchingAllTasks();
+    })
+    .catch(err => console.error("Failed to load navbar:", err));
 });
 
 // Fetching and displaying all users and their tasks (for admin)
@@ -137,4 +139,3 @@ function logout() {
   localStorage.removeItem("token");
   window.location.href = "login.html";
 }
-
