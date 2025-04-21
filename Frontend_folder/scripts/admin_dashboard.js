@@ -1,54 +1,49 @@
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
 
-  fetch("navbar.html")
-    .then(res => res.text())
-    .then(data => {
-      document.getElementById("navbar-placeholder").innerHTML = data;
+  const logoutButton = document.getElementById("logoutButton");
+  const loginButton = document.getElementById("loginButton");
+  const registerButton = document.getElementById("registerButton");
+  const home = document.getElementById("home");
+  const adminDashboard = document.getElementById("adminDashboard");
+  const userDashboard = document.getElementById("userDashboard");
 
-      const logoutButton = document.getElementById("logoutButton");
-      const loginButton = document.getElementById("loginButton");
-      const registerButton = document.getElementById("registerButton");
-      const home = document.getElementById("home");
-      const adminDashboard = document.getElementById("adminDashboard");
-      const userDashboard = document.getElementById("userDashboard");
+  if (token) {
+    logoutButton.style.display = 'inline-block';
+    loginButton.style.display = 'none';
+    registerButton.style.display = 'none';
+    home.style.display = 'none';
 
-      if (token) {
-        logoutButton.style.display = "inline-block";
-        loginButton.style.display = "none";
-        registerButton.style.display = "none";
-        home.style.display = "none";
-
-        try {
-          const payload = JSON.parse(atob(token.split(".")[1])); 
-
-          if (payload.role === "admin") {
-            adminDashboard.style.display = "inline-block";
-          } else {
-            userDashboard.style.display = "inline-block";
-          }
-        } catch (err) {
-          console.warn("Token parsing error:", err);
-        }
-
-        logoutButton.addEventListener("click", logout);
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      if (payload.role === "admin") {
+        adminDashboard.style.display = 'inline-block';
+        userDashboard.style.display = 'none';
       } else {
-        // User is not logged in
-        logoutButton.style.display = "none";
-        loginButton.style.display = "inline-block";
-        registerButton.style.display = "inline-block";
-        home.style.display = "inline-block";
-        adminDashboard.style.display = "none";
-        userDashboard.style.display = "none";
-
-        if (!window.location.href.includes("login.html")) {
-          window.location.href = "login.html"; 
-        }
+        userDashboard.style.display = 'inline-block';
+        adminDashboard.style.display = 'none';
       }
-      fetchingAllTasks();
-    })
-    .catch(err => console.error("Failed to load navbar:", err));
+    } catch (err) {
+      console.warn("Token parsing error:", err);
+    }
+
+    logoutButton.addEventListener("click", logout);
+  } else {
+    logoutButton.style.display = 'none';
+    loginButton.style.display = 'inline-block';
+    registerButton.style.display = 'inline-block';
+    home.style.display = 'inline-block';
+    adminDashboard.style.display = 'none';
+    userDashboard.style.display = 'none';
+
+    if (!window.location.href.includes("login.html")) {
+      window.location.href = 'login.html';
+    }
+  }
+
+  fetchingAllTasks(); 
 });
+
 
 // Fetching and displaying all users and their tasks (for admin)
 async function fetchingAllTasks() {
