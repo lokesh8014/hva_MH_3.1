@@ -13,6 +13,20 @@ const authorizeRole = roleMiddleware.authorizeRole;
 router.post('/tasks', authenticate, taskController.createTask);
 router.get('/user/dashboard', authenticate, authorizeRole('user'), taskController.getUserTasks);
 router.get('/admin/dashboard', authenticate, authorizeRole('admin'), taskController.getAllTasks);
+router.get('/dashboard', authenticateAdmin, async (req, res) => {
+    try {
+      const users = await User.find().select('-password');
+      const usersWithTasks = await Promise.all(users.map(async user => {
+        const tasks = await Task.find({ userId: user._id });
+        return { ...user.toObject(), tasks };
+      }));
+      res.status(200).json({ users: usersWithTasks });
+    } catch (err) {
+      console.error("Admin dashboard error:", err);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+  
 router.delete('/tasks/:id', authenticate, async (req, res) => { 
     const taskId = req.params.id;
     try {

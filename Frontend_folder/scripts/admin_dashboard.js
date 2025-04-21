@@ -60,6 +60,7 @@ async function fetchingAllTasks() {
     taskListElement.innerHTML = '<p>No tasks found</p>';
     return;
   }
+  
 
   data.users.forEach(user => {
     const userBox = document.createElement('div');
