@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem("token");
+  fetch("admin_navbar.html")
+    .then(res => res.text())
+    .then(data => {
+      document.getElementById("navbar-placeholder").innerHTML = data;
+    })
+    .catch(err => console.error("Failed to load navbar:", err));
 
   // Navbar Elements
   const logoutButton = document.getElementById("logoutButton");
