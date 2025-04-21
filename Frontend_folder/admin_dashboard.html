@@ -18,15 +18,46 @@
       margin-left: 20px;
       padding: 5px 0;
     }
+
+    /* Basic navbar styling */
+    #navbar {
+      display: flex;
+      gap: 10px;
+      padding: 10px;
+      background-color: #eee;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    #navbar a {
+      text-decoration: none;
+      color: #333;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+
+    #navbar a:hover {
+      background-color: #ddd;
+    }
   </style>
 </head>
 <body>
-  <div id="navbar"></div>
 
-  <h2 style="margin-top: 70px;">All User Tasks</h2>
-  <div id="taskList"></div> 
+  <div id="navbar">
+    <a id="home" href="index.html">Home</a>
+    <a id="loginButton" href="login.html">Login</a>
+    <a id="registerButton" href="register.html">Register</a>
+    <a id="adminDashboard" href="admin_dashboard.html" style="display: none;">Admin Dashboard</a>
+    <a id="logoutButton" href="javascript:void(0);" onclick="logout()" style="display: none;">Logout</a>
+  </div>
+
+  <h2 style="margin-top: 80px; text-align: center;">All User Tasks</h2>
+  <div id="taskList" style="margin: 20px;"></div> 
 
   <script src="scripts/loadingcomponents.js"></script>
-  <script src="scripts/admin_dashboard.js" defer></script>
+  <script src="scripts/admin_dashboard.js"></script>
 </body>
 </html>

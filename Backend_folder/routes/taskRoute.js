@@ -13,7 +13,6 @@ const authorizeRole = roleMiddleware.authorizeRole;
 router.post('/tasks', authenticate, taskController.createTask);
 router.get('/user/dashboard', authenticate, authorizeRole('user'), taskController.getUserTasks);
 router.get('/admin/dashboard', authenticate, authorizeRole('admin'), taskController.getAllTasks);
-  
 router.delete('/tasks/:id', authenticate, async (req, res) => { 
     const taskId = req.params.id;
     try {
@@ -23,8 +22,10 @@ router.delete('/tasks/:id', authenticate, async (req, res) => {
         }
         res.status(200).json({ message: "Task deleted successfully" });
     } catch (error) {
-        res.status(500).json({ message: "Server error" });
+        console.error(" Error retrieving tasks:", error.message, error.stack);
+        res.status(500).json({ message: "Error retrieving tasks", error: error.message });
     }
+      
 });
 
 module.exports = router;

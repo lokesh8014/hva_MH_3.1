@@ -44,7 +44,7 @@ exports.getUserTasks = async (req, res) => {
 // Get All Tasks for Admin Dashboard
 exports.getAllTasks = async (req, res) => {
     try {
-        console.log(" Role:", req.user.role); // debug
+        console.log(" Role:", req.user.role); 
 
         if (req.user.role !== 'admin') {
             console.log(" Access denied for role:", req.user.role);

@@ -33,7 +33,7 @@ async function fetchingUserTasks() {
 
   try {
     const response = await fetch('https://hva-mh-3-1.onrender.com/api/user/dashboard', {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` }
     });
 
     if (!response.ok) {

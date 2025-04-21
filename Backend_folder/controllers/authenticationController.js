@@ -2,7 +2,7 @@ const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-//Creating new user
+// Creating new user
 exports.createUser = async (req, res) => {
     try {
         console.log("Received Data:", req.body); 
@@ -18,9 +18,7 @@ exports.createUser = async (req, res) => {
             return res.status(400).json({ message: "User already exists" });
         }
 
-
         const newUser = new User({ name, email, password }); 
-
         await newUser.save();
         res.status(201).json({ message: "User registered successfully" });
 
@@ -30,9 +28,7 @@ exports.createUser = async (req, res) => {
     }
 };
 
-
-
-//getting users data
+// Getting all users
 exports.getUsers = async (req, res) => {
     try {
         const users = await User.find(); 
@@ -42,7 +38,7 @@ exports.getUsers = async (req, res) => {
     }
 };
 
-// Login User
+// Login user
 exports.loginUser = async (req, res) => {
     try {
         console.log("Login attempt:", req.body);
@@ -71,7 +67,14 @@ exports.loginUser = async (req, res) => {
         );
 
         console.log("Generated Token:", token);
-        res.status(200).json({ token, user: { id: user._id, name: user.name, role: user.role } });
+        res.status(200).json({ 
+            token, 
+            user: { 
+                id: user._id, 
+                name: user.name,    
+                role: user.role 
+            } 
+        });
     } catch (error) {
         console.error("Login Error:", error);
         res.status(500).json({ message: "Server Error", error: error.message });
