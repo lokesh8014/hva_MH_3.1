@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("Admin Dashboard loaded");
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
 
@@ -27,6 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function fetchingAllTasks() {
+  console.log("Calling fetchAllTasks...");
   const token = localStorage.getItem('token');
   if (!token) {
     alert('No token found. Redirecting to login.');
@@ -48,7 +50,9 @@ async function fetchingAllTasks() {
     return;
   }
 
+  console.log("Raw response", response);
   const data = await response.json();
+  console.log("API Data:", data);
   const taskListElement = document.getElementById('taskList');
   taskListElement.innerHTML = '';
 
