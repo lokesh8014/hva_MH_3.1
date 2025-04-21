@@ -44,18 +44,21 @@ exports.getUserTasks = async (req, res) => {
 // Get All Tasks for Admin Dashboard
 exports.getAllTasks = async (req, res) => {
     try {
+        console.log(" Role:", req.user.role); // debug
+
         if (req.user.role !== 'admin') {
+            console.log(" Access denied for role:", req.user.role);
             return res.status(403).json({ message: 'Access denied' });
         }
 
-        // Fetching tasks 
+        console.log(" Fetching all tasks...");
         const tasks = await Task.find().populate('userId', 'name email');
 
-        // Grouping tasks by user
         const groupedTasks = {};
-
         tasks.forEach(task => {
-            const userId = task.userId._id;
+            const userId = task.userId?._id;
+            if (!userId) return;
+
             if (!groupedTasks[userId]) {
                 groupedTasks[userId] = {
                     userId,
@@ -72,12 +75,13 @@ exports.getAllTasks = async (req, res) => {
             });
         });
 
-        // Converting object to array
         const result = Object.values(groupedTasks);
+        console.log("Grouped result:", result);
 
         res.status(200).json({ users: result });
 
     } catch (error) {
-        res.status(500).json({ message: 'Error retrieving tasks', error });
+        console.error("Error in getAllTasks:", error.message);
+        res.status(500).json({ message: 'Error retrieving tasks', error: error.message });
     }
 };
