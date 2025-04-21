@@ -1,32 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
   const token = localStorage.getItem('token');
 
-  const checkNavbar = setInterval(() => {
-    const logoutButton = document.getElementById('logoutButton');
-    const loginButton = document.getElementById('loginButton');
-    const registerButton = document.getElementById('registerButton');
-    const home = document.getElementById('home');
-    const adminDashboard = document.getElementById('adminDashboard');
+  const logoutButton = document.getElementById('logoutButton');
+  const loginButton = document.getElementById('loginButton');
+  const registerButton = document.getElementById('registerButton');
+  const home = document.getElementById('home');
+  const adminDashboard = document.getElementById('adminDashboard');
 
-    if (logoutButton && loginButton && registerButton && home && adminDashboard) {
-      clearInterval(checkNavbar);
+  if (token) {
+    logoutButton.style.display = 'inline-block';
+    loginButton.style.display = 'none';
+    registerButton.style.display = 'none';
+    home.style.display = 'none';
+    adminDashboard.style.display = 'inline-block';
+  } else {
+    logoutButton.style.display = 'none';
+    loginButton.style.display = 'inline-block';
+    registerButton.style.display = 'inline-block';
+    home.style.display = 'inline-block';
+    adminDashboard.style.display = 'none';
 
-      if (token) {
-        logoutButton.style.display = 'inline-block';
-        loginButton.style.display = 'none';
-        registerButton.style.display = 'none';
-        home.style.display = 'none';
-        adminDashboard.style.display = 'inline-block';
-      } else {
-        logoutButton.style.display = 'none';
-        loginButton.style.display = 'inline-block';
-        registerButton.style.display = 'inline-block';
-        home.style.display = 'inline-block';
-        adminDashboard.style.display = 'none';
-      }
-    }
-  }, 100);
+    window.location.href = 'login.html';
+  }
+
+  fetchingAllTasks(); 
 });
+
 
 async function fetchingAllTasks() {
   const token = localStorage.getItem('token');
@@ -97,7 +96,7 @@ async function fetchingAllTasks() {
   }
 }
 
-fetchingAllTasks();
+
 function logout() {
   localStorage.removeItem('token');
   window.location.href = 'login.html';
