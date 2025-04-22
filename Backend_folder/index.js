@@ -37,10 +37,10 @@ mongoose.connect(process.env.MONGODB_URI)
 // Creating Admin User
 const createAdmin = async () => {
     try {
-        const adminEmail = "admin@hyperverge.co";
+        const adminEmail = "lokesh8014@gmail.com";
         const existingAdmin = await User.findOne({ email: adminEmail });
 
-        const hashedPassword = await bcrypt.hash("admin123", 10);
+        const hashedPassword = await bcrypt.hash("Lokesh24063", 10);
 
         if (!existingAdmin) {
             await User.create({
